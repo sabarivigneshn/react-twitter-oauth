@@ -16,8 +16,10 @@ class Home extends Component {
     }
 
     onSuccess = (response) => {
-        console.log('called -----on success')
+        alert('called -----on success')
+        
         const token = response.headers.get('x-auth-token');
+        console.log('=resp;onse', response)
         response.json().then(user => {
             if (token) {
                 this.setState({ isAuthenticated: true, user: user, token: token });
@@ -34,7 +36,7 @@ class Home extends Component {
     };
 
     render() {
-        console.log('===========props', this.state)
+        console.log('===========props', this.props)
         return (
             <div >
                 {this.state.isAuthenticated ?
@@ -50,8 +52,8 @@ class Home extends Component {
                         </div>
                     </div>
                     :
-                    <div>
-                        <h3>Home Component</h3>
+                    <div className="text-center">
+                        <h3 className="mt-2 mb-4">Home Component</h3>
                         <TwitterLogin
                             loginUrl="http://localhost:4000/api/v1/auth/twitter"
                             onFailure={this.onFailed}

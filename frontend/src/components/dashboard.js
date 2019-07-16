@@ -10,6 +10,9 @@ class Dashboard extends Component {
         this.state = { };
     }
 
+    componentDidMount() {
+        alert('=========ssssss', this.props)
+    }
     render() {
         console.log('===========props', this.state)
         return (
