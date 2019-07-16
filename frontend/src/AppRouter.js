@@ -9,6 +9,7 @@ import './App.css';
 
 import App from './App'
 import Home from './components/home'
+import dashboard from './components/dashboard';
 
 class AppRouter extends Component {
     constructor(props) {
@@ -22,6 +23,7 @@ class AppRouter extends Component {
             <Router>
                 <Switch>
                     <Route exact path="/" component={Home} />
+                    <Route path="/dashboard" component={dashboard} />
                 </Switch>
             </Router>
         );
