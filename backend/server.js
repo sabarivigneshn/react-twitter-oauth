@@ -62,6 +62,26 @@ var sendToken = function (req, res) {
 	return res.status(200).send(JSON.stringify(req.user));
 };
 
+router.route('/getUserDetails/:screenName')
+	.get(function (req, res) {
+		request.get({
+			url: 'https://api.twitter.com/1.1/users/show.json?screen_name=' + req.params.screenName,
+			oauth: {
+				consumer_key: twitterConfig.consumerKey,
+				consumer_secret: twitterConfig.consumerSecret
+			}
+
+		}, function (err, resp, body) {
+			if (err) {
+				return res.send(500, { message: e.message });
+			}
+			console.log('get user details=========', body)
+			var jsonStr = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
+			res.send(JSON.parse(body));
+		})
+
+	})
+
 router.route('/auth/twitter/reverse')
 	.post(function (req, res) {
 		request.post({
