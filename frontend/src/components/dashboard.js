@@ -52,13 +52,13 @@ class Dashboard extends Component {
                     logout={this.props.logout} />
                 <div className="container mt-4">
                     <h3>Followers</h3>
-                    <div class="row">
+                    <div className="row">
                         {followersList.length ?
                             followersList.map(follower => {
                                 return (
                                     <div className="col-lg-3 mt-3" key={follower.id}>
                                         <div className="card">
-                                            <img class="card-img-top" src={follower.profile_image_url} alt="Card image cap" />
+                                            <img className="card-img-top" src={follower.profile_image_url} alt="Card image cap" />
                                             <div className="card-body">
                                                 <h4 className="text-capitalize">{follower.name}</h4>
                                                 <h6 className="text-black-50">{follower.screen_name}</h6>
