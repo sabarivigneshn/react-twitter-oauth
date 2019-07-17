@@ -59,13 +59,35 @@ var generateToken = function (req, res, next) {
 
 var sendToken = function (req, res) {
 	res.setHeader('x-auth-token', req.token);
-	return res.status(200).send(JSON.stringify(req.user));
+	return res.status(200).send(JSON.stringify(req.body));
 };
 
+// API to get User details
 router.route('/getUserDetails/:screenName')
 	.get(function (req, res) {
 		request.get({
 			url: 'https://api.twitter.com/1.1/users/show.json?screen_name=' + req.params.screenName,
+			oauth: {
+				consumer_key: twitterConfig.consumerKey,
+				consumer_secret: twitterConfig.consumerSecret
+			}
+
+		}, function (err, resp, body) {
+			if (err) {
+				return res.send(500, { message: e.message });
+			}
+			console.log('get user details=========', body)
+			var jsonStr = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
+			res.send(JSON.parse(body));
+		})
+
+	})
+
+// API to get followers
+router.route('/getFollwersList/:screenName')
+	.get(function (req, res) {
+		request.get({
+			url: 'https://api.twitter.com/1.1/followers/list.json?screen_name=' + req.params.screenName,
 			oauth: {
 				consumer_key: twitterConfig.consumerKey,
 				consumer_secret: twitterConfig.consumerSecret
@@ -123,6 +145,7 @@ router.route('/auth/twitter')
 			req.body['oauth_token'] = parsedBody.oauth_token;
 			req.body['oauth_token_secret'] = parsedBody.oauth_token_secret;
 			req.body['user_id'] = parsedBody.user_id;
+			req.body['screenName'] = parsedBody.screen_name
 
 			next();
 		});
@@ -130,7 +153,6 @@ router.route('/auth/twitter')
 		if (!req.user) {
 			return res.send(401, 'User Not Authenticated');
 		}
-
 		// prepare token for API
 		req.auth = {
 			id: req.user.id
