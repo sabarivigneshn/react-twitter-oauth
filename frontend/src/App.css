@@ -31,3 +31,27 @@
     transform: rotate(360deg);
   }
 }
+
+.dark-bg{
+    color: black;
+}
+.light-bg{
+    color: #f8f9fa!important;
+}
+.header-link > 
+    a {
+        cursor: pointer;
+}
+
+.header-page >
+.dropdown-item:active{
+        background-color: #f8f9fa;
+        color:black
+}
+
+.header-page >.form-control {
+        border-left: 1px solid #ced4da;
+}
+.nav-link:hover {
+    text-decoration: none;
+}
