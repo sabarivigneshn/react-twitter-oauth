@@ -76,7 +76,6 @@ router.route('/getUserDetails/:screenName')
 			if (err) {
 				return res.send(500, { message: e.message });
 			}
-			console.log('get user details=========', body)
 			var jsonStr = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
 			res.send(JSON.parse(body));
 		})
@@ -97,7 +96,6 @@ router.route('/getFollwersList/:screenName')
 			if (err) {
 				return res.send(500, { message: e.message });
 			}
-			console.log('get user details=========', body)
 			var jsonStr = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
 			res.send(JSON.parse(body));
 		})
@@ -117,7 +115,6 @@ router.route('/auth/twitter/reverse')
 			if (err) {
 				return res.send(500, { message: e.message });
 			}
-			console.log('called reverse apiu', body)
 			var jsonStr = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
 			res.send(JSON.parse(jsonStr));
 		});
@@ -135,13 +132,10 @@ router.route('/auth/twitter')
 			form: { oauth_verifier: req.query.oauth_verifier }
 		}, function (err, r, body) {
 			if (err) {
-				console.log('error==========', err)
 				return res.send(500, { message: err.message });
 			}
-			console.log('bodsyyyyyyyy', body)
 			const bodyString = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
 			const parsedBody = JSON.parse(bodyString);
-			console.log('=parsed body', parsedBody)
 			req.body['oauth_token'] = parsedBody.oauth_token;
 			req.body['oauth_token_secret'] = parsedBody.oauth_token_secret;
 			req.body['user_id'] = parsedBody.user_id;
