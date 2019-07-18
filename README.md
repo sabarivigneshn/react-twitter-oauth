@@ -2,7 +2,7 @@
 
 react app with twitter oauth and redux
 
-Frontend
+# Frontend
 
 install ngrok by using npm i ngrok -g
 
@@ -16,7 +16,7 @@ To make our local application as https url
 
 Run ngrok http 3000 
 
-Backend
+# Backend
 
 switch to backend folder
 
